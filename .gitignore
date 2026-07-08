@@ -1,5 +1,7 @@
 data/raw/
 results/*.rds
+external_validation/data/
+external_validation/results/*.rds
 .Rhistory
 .RData
 .Rproj.user/

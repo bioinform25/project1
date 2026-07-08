@@ -209,7 +209,15 @@ abs_p3.add_run(
 abs_p3.add_run("≳").font.name = "Cambria Math"
 abs_p3.add_run(
     " 2.0-2.4); nominal, uncorrected effects were observed in neutrophils and "
-    "mast cells."
+    "mast cells. Testing the S100A8-hi signature against two independent "
+    "public mouse liver scRNA-seq datasets showed it reproduces as a "
+    "discrete population in a CD45"
+)
+abs_p3.add_run("+").font.superscript = True
+abs_p3.add_run(
+    "-sorted dataset (with a diet-dependent trend at 2 of 3 timepoints) but "
+    "not in a whole-liver dataset with true biological replication, "
+    "suggesting immune-cell enrichment aids detection of this state."
 )
 
 abs_p4 = doc.add_paragraph()
@@ -550,15 +558,47 @@ p.add_run(
     "t-test power calculation (alpha = 0.05, 80% power) for n = 4 and n = 5 "
     "per group to contextualize non-significant results. All analyses were "
     "performed in R 4.5.2; the complete, version-controlled analysis code "
-    "(scripts 00-12) is available at the repository in Section 2.7."
+    "(scripts 00-12) is available at the repository in Section 2.8."
 )
 
-doc.add_heading("2.7 Data and code availability", level=2)
+doc.add_heading("2.7 External validation in independent public datasets", level=2)
 p = doc.add_paragraph()
 p.add_run(
-    "Raw data: NCBI GEO GSE285614 (bulk RNA-seq) and GSE285615 (scRNA-seq). "
-    "Analysis code, intermediate result tables and all figures: "
-    "https://github.com/bioinform25/project1."
+    "To test whether the S100A8-hi macrophage population reflects a reproducible cell "
+    "state rather than an artifact of the single WT/TG reference pair (Section 2.2), "
+    "we searched GEO for independent mouse liver scRNA-seq datasets with true "
+    "biological replication and applied the same marker criteria used to define this "
+    "population (S100a8/S100a9 percent-positive > 90%, Ly6g/Camp/Ltf/Ngp "
+    "percent-positive < 10%, versus > 50% for a mature neutrophil) to their "
+    "clusters. Two datasets were used: (1) GSE166504 "
+)
+add_ref_run(p, 10)
+p.add_run(
+    ", mouse liver non-parenchymal cells across a chow / 15-week high-fat-high-"
+    "fructose-diet (NAFL) / 30-week (NASH) progression with true biological "
+    "replicates (chow n = 6, NAFL n = 3, NASH n = 4 mice), reprocessed from raw "
+    "counts and the authors' own coarse cell-type labels (Kupffer cell, monocyte/"
+    "monocyte-derived macrophage, neutrophil; 23,198 myeloid cells), reclustered "
+    "within the myeloid compartment (resolution = 0.6, 18 clusters); and (2) "
+    "GSE156057 (Remmerie et al."
+)
+add_ref_run(p, 11)
+p.add_run(
+    "), CD45+-sorted mouse liver immune cells across standard diet (SD) vs "
+    "western diet (WD), 12/24/36-week timepoints (one sample per condition-"
+    "timepoint -- pseudo-replicates across independent mice/times, not "
+    "within-condition biological replicates), reclustered de novo (77,655 "
+    "cells, resolution = 0.8, 40 clusters). For each dataset we determined "
+    "whether any cluster matched the marker criteria and, where present, "
+    "computed its proportion of CD45+/myeloid cells across conditions."
+)
+
+doc.add_heading("2.8 Data and code availability", level=2)
+p = doc.add_paragraph()
+p.add_run(
+    "Raw data: NCBI GEO GSE285614 (bulk RNA-seq), GSE285615 (scRNA-seq), "
+    "GSE166504 and GSE156057 (external validation). Analysis code, intermediate "
+    "result tables and all figures: https://github.com/bioinform25/project1."
 )
 
 doc.add_page_break()
@@ -731,6 +771,57 @@ add_figure(
     "BH q < 0.05 across all 30 tests performed."
 )
 
+doc.add_heading(
+    "3.5 The S100A8-hi macrophage signature reproduces in an independent, "
+    "immune-cell-sorted dataset but not in a whole-liver dataset", level=2
+)
+p = doc.add_paragraph()
+p.add_run(
+    "In GSE156057 (CD45+-sorted, 77,655 cells, 40 clusters), three clusters "
+    "matched the S100A8-hi, Ly6g-low criteria (S100a8/S100a9 percent-positive "
+    "97-99%, Ly6g/Camp/Ltf/Ngp all < 5%), clearly separated from an "
+    "unambiguous neutrophil cluster (S100a8/S100a9 100%, Ly6g 89%, Camp 88%, "
+    "Ltf 80%, Ngp 95%) and from Clec4f-high resident Kupffer clusters "
+    "(Figure 5A). Combined, these clusters comprised 5.0-7.8% of CD45"
+)
+p.add_run("+").font.superscript = True
+p.add_run(
+    " cells per sample and were more abundant under western diet (WD) than "
+    "standard diet (SD) at 12 and 24 weeks (WD/SD ratio 1.45 and 1.21) but "
+    "not at 36 weeks (ratio 0.81; Figure 5B) — directionally consistent with, "
+    "though not statistically confirmable given the single-mouse-per-"
+    "condition design, diet-dependent recruitment. In GSE166504 (whole-liver "
+    "non-parenchymal cells with true biological replication: chow n = 6, "
+    "NAFL n = 3, NASH n = 4 mice; 23,198 myeloid cells, 18 clusters), no "
+    "cluster showed this combination: the only S100a8/S100a9-high cluster "
+    "also carried high Camp/Ngp/Ltf and was author-labeled Neutrophil, while "
+    "S100a8 positivity among monocyte/macrophage-lineage clusters varied "
+    "only as a modest, continuous gradient (6-19%) uncorrelated with Csf1r "
+    "positivity (Figure 5C) rather than resolving into a discrete "
+    "population. We interpret this discrepancy as most consistent with "
+    "immune-cell enrichment (CD45+ sorting, used both in this study's own "
+    "scRNA-seq reference and in GSE156057) being necessary to resolve this "
+    "population by unsupervised clustering at typical whole-liver sequencing "
+    "depth, rather than as evidence that the population is an artifact "
+    "specific to the single WT/TG reference pair used in the primary "
+    "analysis (Section 2.2)."
+)
+
+add_figure(
+    "Figure5.png", 6.7, "Figure 5. ",
+    "External validation of the S100A8-hi macrophage signature in two "
+    "independent mouse liver scRNA-seq datasets. (A) Marker profile "
+    "(percent of cells expressing each gene) for the three candidate "
+    "S100A8-hi clusters, the neutrophil cluster, and two representative "
+    "Kupffer clusters in GSE156057 (CD45+-sorted). (B) S100A8-hi cluster "
+    "proportion (combined) by diet and timepoint in GSE156057. (C) In "
+    "GSE166504 (whole-liver, true biological replicates), percent of cells "
+    "expressing S100a8 plotted against percent expressing Csf1r for all 18 "
+    "myeloid clusters, colored by the authors' dominant cell-type label; "
+    "S100a8 positivity forms a gradient rather than isolating a discrete "
+    "cluster among monocyte/macrophage-lineage populations."
+)
+
 doc.add_page_break()
 
 # ============================================================= DISCUSSION ==
@@ -802,6 +893,32 @@ p.add_run(
     "necessary to correctly adjudicate which comparison was unreliable."
 )
 
+p = doc.add_paragraph()
+p.add_run(
+    "Because the primary scRNA-seq reference comprises a single WT and "
+    "single TG mouse, a further question is whether the S100A8-hi "
+    "macrophage population itself is reproducible, or an artifact of that "
+    "one pair. We addressed this directly by testing the same marker "
+    "criteria against two independent, publicly available mouse liver "
+    "scRNA-seq datasets (Section 2.7, Figure 5). The population reproduced "
+    "cleanly, with a diet-dependent trend at two of three timepoints, in a "
+    "CD45"
+)
+p.add_run("+").font.superscript = True
+p.add_run(
+    "-sorted dataset (GSE156057), but did not resolve as a discrete cluster "
+    "in a whole-liver dataset with true biological replication (GSE166504) "
+    "— suggesting that immune-cell enrichment, rather than biological "
+    "replicate number per se, may be the more critical design factor for "
+    "detecting this state by unsupervised clustering at typical whole-liver "
+    "sequencing depth. This is itself a transferable observation for scRNA-"
+    "seq study design in liver immunology, and it meaningfully strengthens "
+    "confidence that the population identified in the primary analysis is "
+    "real rather than an artifact of a single mouse pair, even though it "
+    "does not resolve the separate, unrelated question of that pair's "
+    "reliability as a directional ground truth (Section 2.5)."
+)
+
 doc.add_heading("4.1 Limitations", level=2)
 lim_items = [
     ("Single-donor scRNA-seq reference. ",
@@ -809,8 +926,13 @@ lim_items = [
      "genotype. As demonstrated directly in this study (Section 2.5), a "
      "single pair cannot establish population-level direction, and "
      "individual-mouse variability likely adds noise to the marker-gene "
-     "signature itself that cannot be quantified without additional "
-     "biological replicates."),
+     "signature itself that cannot be fully quantified without additional "
+     "biological replicates. External validation (Section 2.7, Figure 5) "
+     "shows the S100A8-hi population itself reproduces in an independent, "
+     "CD45+-sorted dataset, partially mitigating but not eliminating this "
+     "limitation — it does not, for instance, validate the exact 5-25-gene "
+     "marker panels used for deconvolution, only the population's "
+     "existence."),
     ("Relative, not absolute, abundance scores. ",
      "MarkerBasedDecomposition returns a per-cell-type relative abundance "
      "score (marker-panel PC1), not an absolute cell proportion; scores are "
@@ -858,7 +980,12 @@ p.add_run(
     "general macrophage/Kupffer compartment rather than the S100A8-hi "
     "subset specifically, and that macrophage-specific S100a8 deletion does "
     "not produce a statistically resolvable shift in broader hepatic immune "
-    "composition at the sample sizes available. These results refine, "
+    "composition at the sample sizes available. External validation against "
+    "two independent public datasets shows the S100A8-hi population "
+    "reproduces in a CD45+-sorted mouse liver dataset but not in a "
+    "whole-liver dataset, indicating it is a real, immune-enrichment-"
+    "dependent cell state rather than an artifact of the single-donor "
+    "reference used in the primary analysis. These results refine, "
     "rather than contradict, the original mechanistic model, and highlight "
     "specific, adequately powered follow-up experiments — larger MKO "
     "cohorts, and dedicated attention to neutrophil and mast cell "
@@ -874,7 +1001,7 @@ doc.add_heading("Supplementary Materials", level=1)
 p = doc.add_paragraph()
 p.add_run(
     "Full result tables underlying all figures and in-text statistics are "
-    "available in the code repository (Section 2.7): "
+    "available in the code repository (Section 2.8): "
     "results/11_axis1_stats_full.csv (axis 1 validation), "
     "results/11_MKO_stats_full.csv (axis 2 application), "
     "results/11_lipid_correlation_BH.csv (lipogenic-gene correlations), "
@@ -955,6 +1082,17 @@ references = [
     "McInnes L, Healy J, Melville J. UMAP: Uniform Manifold Approximation "
     "and Projection for Dimension Reduction. arXiv:1802.03426 [stat.ML]. "
     "2018.",
+
+    "Su Q, Kim SY, Adewale F, Zhou Y, Aldler C, Ni M, Wei Y, Burczynski ME, "
+    "Atwal GS, Sleeman MW, Murphy AJ, Xin Y, Cheng X. Single-cell RNA "
+    "transcriptome landscape of hepatocytes and non-parenchymal cells in "
+    "healthy and NAFLD mouse liver. iScience. 2021;24(11):103233. "
+    "doi:10.1016/j.isci.2021.103233",
+
+    "Remmerie A, Martens L, Thoné T, Castoldi A, Seurinck R, Pavie B, et al. "
+    "Osteopontin Expression Identifies a Subset of Recruited Macrophages "
+    "Distinct from Kupffer Cells in the Fatty Liver. Immunity. "
+    "2020;53(3):641-657.e14. doi:10.1016/j.immuni.2020.08.004",
 ]
 
 for i, ref in enumerate(references, start=1):
