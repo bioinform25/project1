@@ -1,0 +1,13 @@
+"cell_type","n_markers_used","pc1_variance_explained_pct"
+"B_cell",5,70.4
+"Cholangiocyte",14,33.5
+"Dendritic_cell",5,54.6
+"Endothelial",5,64.3
+"Hepatocyte",6,50.6
+"Macrophage_Kupffer",7,72.4
+"Mast_cell",9,35.9
+"Neutrophil",25,38.7
+"NK_cell",5,78.1
+"S100A8hi_macrophage",7,76.9
+"Stellate_Fibroblast",10,69.1
+"T_cell",7,34.8

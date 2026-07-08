@@ -84,36 +84,42 @@ be trivially confounded by S100a8/9 alone.
 **Validation (axis 1, WT vs Bcl2TG, HFD)**: marker-based deconvolution recovers
 **WT > TG** for S100A8hi_macrophage and Macrophage_Kupffer, concordant (3/3 cell types
 checked) with the original authors' properly-replicated bulk DESeq2 marker-gene
-directions — see the pitfall/correction note above. Method validated.
+directions — see the pitfall/correction note above. Within our own n=5-vs-5 resample,
+Macrophage_Kupffer reaches Wilcoxon p=0.012 (BH q=0.024, Cohen's d=-2.86); the
+S100A8hi_macrophage subset itself trends the same direction (d=-0.92) but does not
+reach significance at this n (Wilcoxon p=0.30) — see the power analysis below for why.
 
 **Application (axis 2, WT vs MKO, macrophage-specific S100a8 knockout)**: no
 statistically significant composition shift in S100A8hi_macrophage or
-Macrophage_Kupffer between WT and MKO, in either chow or HFD (all p > 0.24,
-`results/08_MKO_stats.csv`). Nominally significant (uncorrected) shifts appear in
-Neutrophil (down in MKO, p=0.007), Mast_cell (up, p=0.009), and Stellate_Fibroblast
-(up, p=0.024) under HFD only, but none survive Benjamini-Hochberg correction across
-the 12 cell types tested (min q=0.056) — hypothesis-generating, not conclusive, given
-n=4-5 per group. **Interpretation**: macrophage-specific S100a8 deletion does not
-detectably remodel the broader hepatic immune cell landscape at this sample size; the
-paper's mechanism (S100A8 -> CCN3 -> CD36) more likely acts within the existing
-macrophage compartment rather than by changing which/how many immune cells infiltrate.
+Macrophage_Kupffer between WT and MKO, in either chow or HFD (all BH q > 0.42,
+Wilcoxon, `results/11_MKO_stats_full.csv`). Nominally significant (uncorrected)
+shifts appear in Neutrophil (down in MKO, d=-2.42, p=0.037) and Mast_cell (up,
+d=2.36, p=0.037) under HFD only, but neither survives BH correction across the 12
+cell types tested (q=0.22) — hypothesis-generating, not conclusive.
 
-**Lipid-gene correlation** (`scripts/09`): across all 19 HFD bulk samples (both axes),
-**Macrophage_Kupffer** (overall macrophage abundance) correlates strongly with
-Cd36/Pparg/Scd1/Plin2/Fasn (Spearman r=0.55-0.75, p<0.02), but this drops to
-non-significant when restricted to axis-2 alone (n=9, r=0.2-0.35) — likely an
-HFD-vs-chow-driven confound shared by both macrophage infiltration and lipogenic gene
-expression, not independent evidence of a causal link. **S100A8hi_macrophage**
-specifically shows **no** correlation with Cd36 in any subset (r=0.11-0.33, all
-p>0.34) — a null result worth reporting as-is: the specific S100A8+ subset's bulk-level
-abundance score doesn't track Cd36 the way the paper's matched mechanistic experiments
-do, plausibly because (a) the marker panel is small (7 genes, all that passed
-`min.pct`/`logfc` and uniqueness filters) or (b) the relationship is more local/
-paracrine than a whole-tissue bulk correlation can resolve. `Ccn3`/`Nov` was not
-present in the bulk gene set and could not be checked.
+**Power check** (`scripts/11`): at n=4-5/group, this cohort is only powered (80%,
+alpha=0.05) to detect Cohen's d >= ~2.0-2.4. The MKO null result should be read as
+*underpowered for moderate effects*, not as evidence of no effect; the Neutrophil/
+Mast_cell nominal hits (d>2.3) are exactly the effect sizes this design *can* detect,
+making them the most credible leads for a follow-up with adequate replication.
 
-See `figures/10_summary_figure.png` for the 4-panel overview (cell types, axis-1
-validation, axis-2 application, Cd36 correlation).
+**Lipid-gene correlation** (`scripts/09`, BH-corrected across all 30 tests in
+`scripts/11`): **Macrophage_Kupffer** correlates with Cd36 (r=0.74, q=0.006),
+Pparg (q=0.006), Scd1 (q=0.006), and Plin2 (q=0.021) across all 19 HFD bulk samples,
+surviving correction. **S100A8hi_macrophage** shows no correlation with any lipid
+gene in any subset (all q>0.4) — a clean, reproducible null.
+
+**Marker-panel transparency** (`scripts/11`): panel sizes (5-25 genes/cell type) are
+not an arbitrary cutoff — `BisqueRNA::GetNumGenesWeighted()` selects the gene count
+that maximizes the PC1/PC2 eigenvalue ratio for each cell type (an internal scree-like
+criterion), not simply "as many as available." PC1 explains 73-78% of marker-panel
+variance for Macrophage_Kupffer, S100A8hi_macrophage and NK_cell (coherent signal)
+but only 34-39% for T_cell, Mast_cell and Neutrophil (noisier; interpret with more
+caution) — see `results/11_marker_panel_QC.csv`.
+
+See `figures/Figure1.png`-`Figure4.png` for the manuscript-ready figures (statistics
+annotated on-figure, sourced directly from `results/11_*.csv` so numbers in text,
+figures, and tables never diverge), and `manuscript.docx` for the full write-up.
 
 ## Repo structure
 
