@@ -332,13 +332,15 @@ p.add_run(
     "Raw and processed data were downloaded from the NCBI Gene Expression "
     "Omnibus"
 )
-add_ref_run(p, 8)
+add_ref_run(p, 7)
 p.add_run(
     " (GSE285614, bulk liver RNA-seq; GSE285615, liver scRNA-seq), "
     "originally deposited alongside"
 )
 add_ref_run(p, 1)
-p.add_run(". GSE285614 was deposited as two separate DESeq2 analyses, each "
+p.add_run(". GSE285614 was deposited as two separate DESeq2")
+add_ref_run(p, 5)
+p.add_run(" analyses, each "
     "with per-sample raw counts embedded alongside summary statistics: "
     "\"HFD_TG_vs_WT\" (16 samples: WT and Bcl2TG, chow and HFD; the "
     "\"adipocyte-death axis\") and \"MKO_HFD_vs_WT_HFD\" (18 samples: "
@@ -388,7 +390,7 @@ p.add_run(
     "nearest-neighbor graph and the Louvain algorithm (resolution = 0.8, "
     "28 clusters) and visualized with UMAP"
 )
-add_ref_run(p, 9)
+add_ref_run(p, 8)
 p.add_run(".")
 
 p = doc.add_paragraph()
@@ -539,7 +541,7 @@ p.add_run(
     "alongside as sensitivity and effect-size measures. Benjamini-Hochberg "
     "(BH) false discovery rate correction"
 )
-add_ref_run(p, 7)
+add_ref_run(p, 6)
 p.add_run(
     " was applied within each pre-specified comparison family (12 cell "
     "types, separately within axis 1's HFD validation cohort and within "
@@ -572,7 +574,7 @@ p.add_run(
     "percent-positive < 10%, versus > 50% for a mature neutrophil) to their "
     "clusters. Two datasets were used: (1) GSE166504"
 )
-add_ref_run(p, 10)
+add_ref_run(p, 9)
 p.add_run(
     ", mouse liver non-parenchymal cells across a chow / 15-week high-fat-high-"
     "fructose-diet (NAFL) / 30-week (NASH) progression with true biological "
@@ -582,7 +584,7 @@ p.add_run(
     "within the myeloid compartment (resolution = 0.6, 18 clusters); and (2) "
     "GSE156057 (Remmerie et al."
 )
-add_ref_run(p, 11)
+add_ref_run(p, 10)
 p.add_run(
     "), CD45+-sorted mouse liver immune cells across standard diet (SD) vs "
     "western diet (WD), 12/24/36-week timepoints (one sample per condition-"
@@ -951,7 +953,7 @@ p.add_run(
     "macrophage) — the Trem2-high, Gpnmb-high, osteopontin-high phenotype "
     "described in steatohepatitis liver by Remmerie et al."
 )
-add_ref_run(p, 11)
+add_ref_run(p, 10)
 p.add_run(
     " and related work: in the primary reference, S100A8hi_macrophage "
     "showed minimal Trem2 (0.9%) and Gpnmb (2.1%) positivity, while these "
@@ -1057,7 +1059,14 @@ p.add_run(
     "results/11_axis1_stats_full.csv (axis 1 validation), "
     "results/11_MKO_stats_full.csv (axis 2 application), "
     "results/11_lipid_correlation_BH.csv (lipogenic-gene correlations), "
-    "and results/11_marker_panel_QC.csv (Table S1 source data, below)."
+    "and results/11_marker_panel_QC.csv (Table S1 source data, below). "
+    "Source data for the external validation analysis (Section 3.5, "
+    "Figure 5) are in external_validation/results/: "
+    "gse156057_pct_expr_by_cluster.csv and gse156057_cluster_markers.csv "
+    "(full FindAllMarkers output, all 40 clusters; Figure 5A), "
+    "gse156057_S100A8hi_proportions.csv (Figure 5B), and "
+    "gse166504_pct_expr_by_cluster.csv with "
+    "gse166504_cluster_vs_authorlabel.csv (Figure 5C)."
 )
 
 s1_headers = ["Cell type", "Marker genes used", "% variance explained by PC1"]
@@ -1117,11 +1126,6 @@ references = [
     "Love MI, Huber W, Anders S. Moderated estimation of fold change and "
     "dispersion for RNA-seq data with DESeq2. Genome Biol. 2014;15:550. "
     "doi:10.1186/s13059-014-0550-8",
-
-    "Ritchie ME, Phipson B, Wu D, Hu Y, Law CW, Shi W, Smyth GK. limma "
-    "powers differential expression analyses for RNA-sequencing and "
-    "microarray studies. Nucleic Acids Res. 2015;43(7):e47. "
-    "doi:10.1093/nar/gkv007",
 
     "Benjamini Y, Hochberg Y. Controlling the false discovery rate: a "
     "practical and powerful approach to multiple testing. J R Stat Soc "
