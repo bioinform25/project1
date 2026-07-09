@@ -570,7 +570,7 @@ p.add_run(
     "biological replication and applied the same marker criteria used to define this "
     "population (S100a8/S100a9 percent-positive > 90%, Ly6g/Camp/Ltf/Ngp "
     "percent-positive < 10%, versus > 50% for a mature neutrophil) to their "
-    "clusters. Two datasets were used: (1) GSE166504 "
+    "clusters. Two datasets were used: (1) GSE166504"
 )
 add_ref_run(p, 10)
 p.add_run(
@@ -627,6 +627,16 @@ p.add_run("+").font.superscript = True
 p.add_run(
     " macrophage population would have conflated these two unrelated myeloid "
     "lineages; they were therefore modeled as separate cell types throughout."
+)
+
+p = doc.add_paragraph()
+p.add_run(
+    "S100A8hi_macrophage also showed minimal expression of Trem2 (0.9% of "
+    "cells) and Gpnmb (2.1%), markers of lipid-associated/scar-associated "
+    "macrophages, whereas these markers were concentrated instead within a "
+    "subset of the broader Macrophage_Kupffer compartment (Trem2 42.1%, "
+    "Gpnmb 23.5%; Figure 1B). This distinction is addressed further in "
+    "Section 4."
 )
 
 add_figure(
@@ -919,6 +929,42 @@ p.add_run(
     "reliability as a directional ground truth (Section 2.5)."
 )
 
+p = doc.add_paragraph()
+p.add_run(
+    "Two further observations help refine the biological identity of this "
+    "population. First, the continuous, non-discrete S100a8 gradient "
+    "observed among monocyte/macrophage-lineage clusters in the whole-liver "
+    "GSE166504 dataset (Figure 5C) is consistent with the established "
+    "biology of monocyte-to-macrophage differentiation, in which recruited "
+    "monocytes traverse a continuous transcriptional trajectory rather than "
+    "switching between sharply discrete states; immune-cell enrichment by "
+    "CD45"
+)
+p.add_run("+").font.superscript = True
+p.add_run(
+    " sorting likely improves the effective signal-to-noise ratio for this "
+    "transitional population, allowing unsupervised clustering to resolve "
+    "cleaner boundaries around it, rather than the underlying biology "
+    "itself differing between datasets. Second, the S100A8-hi population's "
+    "own marker profile argues against it being a mature lipid-associated "
+    "macrophage (also termed scar-associated or NASH-associated "
+    "macrophage) — the Trem2-high, Gpnmb-high, osteopontin-high phenotype "
+    "described in steatohepatitis liver by Remmerie et al."
+)
+add_ref_run(p, 11)
+p.add_run(
+    " and related work: in the primary reference, S100A8hi_macrophage "
+    "showed minimal Trem2 (0.9%) and Gpnmb (2.1%) positivity, while these "
+    "markers were concentrated instead within the broader Macrophage_"
+    "Kupffer compartment (Trem2 42.1%, Gpnmb 23.5%; Section 3.1). Combined "
+    "with its transient, diet-reversible abundance pattern in GSE156057 "
+    "(Section 3.5), this profile is more consistent with an early, acutely "
+    "inflammatory, recently recruited monocyte-derived state responding to "
+    "adipocyte death than with the chronically lipid-laden lipid-"
+    "associated-macrophage phenotype that develops later in disease "
+    "progression."
+)
+
 doc.add_heading("4.1 Limitations", level=2)
 lim_items = [
     ("Single-donor scRNA-seq reference. ",
@@ -952,7 +998,13 @@ lim_items = [
     ("Ccn3 (Nov) was not testable. ",
      "This transcript was absent from the bulk gene annotation used in "
      "this dataset and could not be included in the lipogenic-gene "
-     "correlation analysis."),
+     "correlation analysis, leaving the paper's proposed CCN3-CD36 "
+     "regulatory step untested directly. This does not, however, undermine "
+     "the study's central conclusion: all four downstream lipogenic/lipid-"
+     "handling genes that could be tested (Cd36, Pparg, Scd1, Plin2) showed "
+     "the same pattern — correlated with general Macrophage_Kupffer "
+     "abundance, not with the S100A8-hi subset specifically (Section 3.4) "
+     "— so the finding does not depend on Ccn3 in particular."),
     ("Two genotype axes were processed as separate sequencing batches. ",
      "Although \"WT\" samples from the two axes were never pooled or "
      "treated as interchangeable, subtler batch effects on library "
