@@ -111,9 +111,9 @@ def make_table(headers, rows, col_widths_in=None, font_size=9):
 title = doc.add_paragraph()
 title.alignment = WD_ALIGN_PARAGRAPH.CENTER
 r = title.add_run(
-    "Single-Cell-Informed Deconvolution Reveals That General Macrophage "
-    "Infiltration, Not the S100A8-Hi Subset Specifically, Tracks Lipogenic "
-    "Gene Expression in a Mouse Model of Steatotic Liver Disease"
+    "Cross-Validated Deconvolution Identifies General Hepatic Macrophage "
+    "Burden, Not an S100A8-Hi Subset, as the Lipogenic-Gene Correlate in "
+    "Mouse MASLD"
 )
 r.bold = True
 r.font.size = Pt(16)
@@ -673,7 +673,15 @@ p.add_run(
     "(reduced HFD-associated immune infiltration in Bcl2TG): Dendritic_cell, "
     "NK_cell, Stellate_Fibroblast and T_cell; Hepatocyte scored higher in TG "
     "than WT (q = 0.024), consistent with proportionally less immune "
-    "infiltrate diluting the hepatocyte signal in WT."
+    "infiltrate diluting the hepatocyte signal in WT. Full statistics "
+    "(effect sizes, both tests, both BH-adjusted q-values) for all 12 cell "
+    "types are provided in "
+)
+r = p.add_run("Data S1")
+r.italic = True
+p.add_run(
+    " (Supplemental Data), generated from the same analysis that produced "
+    "Figure 2."
 )
 
 add_figure(
@@ -715,8 +723,13 @@ p.add_run(
     "MKO (d = -2.42, p = 0.037) and Mast_cell was higher in MKO (d = 2.36, "
     "p = 0.037) under HFD (Figure 3E-F); neither survived correction across "
     "the 12-cell-type family (q = 0.22) and both require confirmation in an "
-    "adequately powered cohort before mechanistic interpretation."
+    "adequately powered cohort before mechanistic interpretation. Full "
+    "results for all 12 cell types in both diets, underlying Figure 3, are "
+    "in "
 )
+r = p.add_run("Data S2")
+r.italic = True
+p.add_run(" (Supplemental Data).")
 
 add_figure(
     "Figure3.png", 6.5, "Figure 3. ",
@@ -748,8 +761,12 @@ p.add_run("≥").font.name = "Cambria Math"
 p.add_run(
     " 0.42; Cd36: r = 0.11, q = 0.76; Figure 4B-C) — a consistent, "
     "reproducible null across the full cohort, within axis 1 alone, and "
-    "within axis 2 alone."
+    "within axis 2 alone. Full correlation results for all 30 tests "
+    "(5 genes x 2 cell types x 3 sample subsets) are in "
 )
+r = p.add_run("Data S3")
+r.italic = True
+p.add_run(" (Supplemental Data).")
 
 t2_headers = ["Comparison", "Cell type / gene pair", "Effect size", "p-value", "BH q"]
 t2_rows = [
@@ -794,13 +811,26 @@ p.add_run(
     "97-99%, Ly6g/Camp/Ltf/Ngp all < 5%), clearly separated from an "
     "unambiguous neutrophil cluster (S100a8/S100a9 100%, Ly6g 89%, Camp 88%, "
     "Ltf 80%, Ngp 95%) and from Clec4f-high resident Kupffer clusters "
-    "(Figure 5A). Combined, these clusters comprised 5.0-7.8% of CD45"
+    "(Figure 5A; marker profile for all 40 clusters in "
+)
+r = p.add_run("Data S4")
+r.italic = True
+p.add_run(", top-5 marker genes per cluster in ")
+r = p.add_run("Data S5")
+r.italic = True
+p.add_run(
+    "). Combined, these clusters comprised 5.0-7.8% of CD45"
 )
 p.add_run("+").font.superscript = True
 p.add_run(
     " cells per sample and were more abundant under western diet (WD) than "
     "standard diet (SD) at 12 and 24 weeks (WD/SD ratio 1.45 and 1.21) but "
-    "not at 36 weeks (ratio 0.81; Figure 5B) — directionally consistent with, "
+    "not at 36 weeks (ratio 0.81; Figure 5B, full per-sample counts in "
+)
+r = p.add_run("Data S6")
+r.italic = True
+p.add_run(
+    ") — directionally consistent with, "
     "though not statistically confirmable given the single-mouse-per-"
     "condition design, diet-dependent recruitment. In GSE166504 (whole-liver "
     "non-parenchymal cells with true biological replication: chow n = 6, "
@@ -809,7 +839,17 @@ p.add_run(
     "also carried high Camp/Ngp/Ltf and was author-labeled Neutrophil, while "
     "S100a8 positivity among monocyte/macrophage-lineage clusters varied "
     "only as a modest, continuous gradient (6-19%) uncorrelated with Csf1r "
-    "positivity (Figure 5C) rather than resolving into a discrete "
+    "positivity (Figure 5C; full marker profile for all 18 clusters in "
+)
+r = p.add_run("Data S7")
+r.italic = True
+p.add_run(
+    ", cluster-to-author-label cross-tabulation in "
+)
+r = p.add_run("Data S8")
+r.italic = True
+p.add_run(
+    ") rather than resolving into a discrete "
     "population. We interpret this discrepancy as most consistent with "
     "immune-cell enrichment (CD45+ sorting, used both in this study's own "
     "scRNA-seq reference and in GSE156057) being necessary to resolve this "
@@ -1055,18 +1095,44 @@ doc.add_heading("Supplementary Materials", level=1)
 p = doc.add_paragraph()
 p.add_run(
     "Full result tables underlying all figures and in-text statistics are "
-    "available in the code repository (Section 2.8): "
-    "results/11_axis1_stats_full.csv (axis 1 validation), "
-    "results/11_MKO_stats_full.csv (axis 2 application), "
-    "results/11_lipid_correlation_BH.csv (lipogenic-gene correlations), "
-    "and results/11_marker_panel_QC.csv (Table S1 source data, below). "
-    "Source data for the external validation analysis (Section 3.5, "
-    "Figure 5) are in external_validation/results/: "
-    "gse156057_pct_expr_by_cluster.csv and gse156057_cluster_markers.csv "
-    "(full FindAllMarkers output, all 40 clusters; Figure 5A), "
-    "gse156057_S100A8hi_proportions.csv (Figure 5B), and "
-    "gse166504_pct_expr_by_cluster.csv with "
-    "gse166504_cluster_vs_authorlabel.csv (Figure 5C)."
+    "reported in a separate document, "
+)
+r = p.add_run("Supplemental Data (Data S1-S8)")
+r.italic = True
+p.add_run(
+    ", accompanying this manuscript: "
+)
+r = p.add_run("Data S1")
+r.italic = True
+p.add_run(" (full axis-1 deconvolution statistics, all 12 cell types), ")
+r = p.add_run("Data S2")
+r.italic = True
+p.add_run(" (full axis-2/MKO statistics), ")
+r = p.add_run("Data S3")
+r.italic = True
+p.add_run(" (full lipogenic-gene correlation statistics), ")
+r = p.add_run("Data S4")
+r.italic = True
+p.add_run(" (GSE156057 marker-gene percent-positive by cluster, all 40 clusters), ")
+r = p.add_run("Data S5")
+r.italic = True
+p.add_run(" (GSE156057 top-5 marker genes per cluster), ")
+r = p.add_run("Data S6")
+r.italic = True
+p.add_run(" (GSE156057 S100A8-hi cluster proportions by diet/timepoint), ")
+r = p.add_run("Data S7")
+r.italic = True
+p.add_run(" (GSE166504 marker-gene percent-positive by cluster, all 18 clusters), and ")
+r = p.add_run("Data S8")
+r.italic = True
+p.add_run(
+    " (GSE166504 cluster-to-author-label cross-tabulation). Each Data S "
+    "item states its source CSV and generating script for full "
+    "reproducibility. The underlying raw CSV files are also available "
+    "directly in the code repository (Section 2.8): results/11_axis1_"
+    "stats_full.csv, results/11_MKO_stats_full.csv, results/11_lipid_"
+    "correlation_BH.csv, results/11_marker_panel_QC.csv (Table S1 source "
+    "data, below), and external_validation/results/*.csv."
 )
 
 s1_headers = ["Cell type", "Marker genes used", "% variance explained by PC1"]
