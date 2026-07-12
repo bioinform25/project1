@@ -417,6 +417,52 @@ p.add_run(
     "S100a8/S100a9."
 )
 
+p = doc.add_paragraph()
+p.add_run(
+    "To characterize the ontogeny of S100A8hi_macrophage more precisely than "
+    "cell-type exclusion alone allows, the same reference was additionally "
+    "scored against literature-established monocyte-recruitment "
+    "(Ly6c2/Ccr2/Sell/Plac8/Chil3) and resident-Kupffer (Clec4f/Timd4/"
+    "Vsig4/Cd5l/Marco) marker panels"
+)
+add_ref_run(p, 11)
+add_ref_run(p, 12)
+add_ref_run(p, 13)
+p.add_run(
+    ", both per-gene (percent of cells expressing) and as Seurat "
+    "AddModuleScore composites. This additionally motivated splitting the "
+    "Macrophage_Kupffer compartment's four constituent subclusters "
+    "(Section 2.2, original resolution 0.8 clustering) into a Clec4f/Vsig4/"
+    "Cd5l-high resident subset (2 subclusters, n = 862 cells) and a Ccr2/"
+    "Plac8-high, partially Trem2/Gpnmb-high subset (2 subclusters, n = 1,766 "
+    "cells) for this analysis only, since the two showed markedly different "
+    "monocyte-recruitment marker positivity (Results 3.1); the single "
+    "Macrophage_Kupffer label was retained for the deconvolution/bulk "
+    "analyses in Sections 3.2-3.4, which do not depend on this distinction."
+)
+
+p = doc.add_paragraph()
+p.add_run(
+    "Two further follow-up analyses (Results 3.6) used the same refined "
+    "origin groups. Transcription-factor mRNA expression (C/EBP- and "
+    "AP-1-family genes) was scored per-gene and as AddModuleScore "
+    "composites, in place of formal target-gene-based TF activity "
+    "inference: decoupleR's CollecTRI/DoRothEA network-fetching functions "
+    "(get_collectri, get_dorothea, and the underlying OmnipathR "
+    "transcriptional/import_transcriptional_interactions calls) all "
+    "failed with the same \"argument is of length zero\" / organism-"
+    "database join error, reproduced after reinstalling both packages "
+    "from their GitHub development branches (OmnipathR 4.1.0, decoupleR "
+    "2.9.7) and after clearing the local OmnipathR cache; this was "
+    "confirmed to be a currently open upstream bug (not specific to this "
+    "machine or organism) via the package's public issue tracker. "
+    "Transcriptional continuity between origin groups was assessed by "
+    "building a fresh PCA (20 components) restricted to cells in the four "
+    "refined origin groups only, then computing each cell's k = 30 "
+    "nearest neighbors (FNN::get.knn) and averaging neighbor group "
+    "identity within each origin group."
+)
+
 doc.add_heading("2.3 Bulk RNA-seq data integration", level=2)
 p = doc.add_paragraph()
 p.add_run(
@@ -637,8 +683,19 @@ p.add_run(
     "cells) and Gpnmb (2.1%), markers of lipid-associated/scar-associated "
     "macrophages, whereas these markers were concentrated instead within a "
     "subset of the broader Macrophage_Kupffer compartment (Trem2 42.1%, "
-    "Gpnmb 23.5%; Figure 1B). This distinction is addressed further in "
-    "Section 4."
+    "Gpnmb 23.5%; Figure 1B). The same Trem2/Gpnmb-high subset also carried "
+    "the highest positivity for Ccr2 (76.6%), a canonical monocyte-"
+    "recruitment receptor — compared with 14.5% in the remaining, Clec4f/"
+    "Vsig4/Cd5l-high majority of the Macrophage_Kupffer compartment and "
+    "only 3.0% in S100A8hi_macrophage itself (Methods 2.2; "
+)
+r = p.add_run("Data S9")
+r.italic = True
+p.add_run(
+    "), indicating that S100A8hi_macrophage does not carry the classical "
+    "Ccr2-dependent monocyte-recruitment signature either, despite "
+    "superficially resembling an early recruited-monocyte state by "
+    "elimination alone. This distinction is addressed further in Section 4."
 )
 
 add_figure(
@@ -876,6 +933,139 @@ add_figure(
 
 doc.add_page_break()
 
+doc.add_heading(
+    "3.6 Follow-up analysis: cross-dataset check of the origin finding, a "
+    "transcription-factor trigger test, and a transcriptional-continuity "
+    "check for fate", level=2
+)
+p = doc.add_paragraph()
+p.add_run(
+    "As corroborating, secondary evidence to the per-gene panel in Section "
+    "3.1, composite monocyte-recruitment and resident-Kupffer scores "
+    "(Seurat AddModuleScore) reproduced the same ranking across all four "
+    "refined origin groups in the primary reference ("
+)
+r = p.add_run("Data S10")
+r.italic = True
+p.add_run(
+    ", Figure S2). The Ccr2-based origin finding (Section 3.1) was then "
+    "extended to the two external validation datasets. In GSE156057, the "
+    "composite monocyte-recruitment score was, unexpectedly, higher rather "
+    "than lower in S100A8hi_macrophage than in the (single, unsplit) "
+    "Kupffer cluster group; per-gene inspection ("
+)
+r = p.add_run("Data S4")
+r.italic = True
+p.add_run(", ")
+r = p.add_run("Data S11")
+r.italic = True
+p.add_run(
+    ") showed this reflects heterogeneity within GSE156057's own three-"
+    "cluster S100A8-hi candidate set (Ccr2 positivity ranges 2.6-74.7% "
+    "across the three), mirroring rather than contradicting the same "
+    "within-group heterogeneity documented for the primary reference's "
+    "Macrophage_Kupffer label (Section 3.1). This is a caution against "
+    "over-interpreting composite scores at coarse cluster resolution, not "
+    "a clean replication or refutation. In GSE166504, where no discrete "
+    "S100A8-hi cluster exists, cluster-level S100a8 expression correlated "
+    "negatively with the resident-Kupffer composite score across the 18 "
+    "myeloid clusters (Spearman rho = -0.47, p = 0.05) but not with the "
+    "monocyte-recruitment score (rho = 0.21, p = 0.41; "
+)
+r = p.add_run("Data S12")
+r.italic = True
+p.add_run(
+    "), weakly consistent with S100a8 tracking away from resident identity "
+    "without clearly supporting classical monocyte recruitment either "
+    "(Figure S3, Figure S4)."
+)
+
+p = doc.add_paragraph()
+p.add_run(
+    "The source paper proposed, but did not test, that C/EBP or AP-1 "
+    "family transcription factors regulate S100A8 induction"
+)
+add_ref_run(p, 1)
+p.add_run(
+    ". Formal TF activity inference (decoupleR with the CollecTRI/DoRothEA "
+    "regulon networks) was attempted but failed in this computing "
+    "environment because of a currently open, unresolved upstream bug in "
+    "OmnipathR's organism database (reproduced after updating to the "
+    "latest GitHub development version of both OmnipathR and decoupleR; "
+    "independently reported by other users, GitHub saezlab/OmnipathR "
+    "issues #128 and #121; Methods 2.2). As a transparent fallback, TF "
+    "mRNA expression itself was used as a proxy. Across all 34 bulk "
+    "samples, no C/EBP- or AP-1-family gene's expression reached BH "
+    "q < 0.05 against either S100a9 expression or the deconvolved "
+    "S100A8hi_macrophage score (9 genes tested; "
+)
+r = p.add_run("Data S13")
+r.italic = True
+p.add_run(
+    "). In the primary scRNA reference, Cebpa — the C/EBP paralog most "
+    "implicated in myeloid inflammatory gene induction in the literature "
+    "— was in fact lowest in S100A8hi_macrophage (4.4% positive) and "
+    "highest in the Ccr2-high Macrophage_MoMF_LAM subset (51.1%; "
+)
+r = p.add_run("Data S14")
+r.italic = True
+p.add_run(
+    "), the opposite of what a simple \"C/EBP drives S100A8-hi identity\" "
+    "model would predict; the AP-1 composite score did not distinguish "
+    "S100A8hi_macrophage from Macrophage_MoMF_LAM at all (Cohen's d = "
+    "0.02, Wilcoxon p = 0.74; "
+)
+r = p.add_run("Data S15")
+r.italic = True
+p.add_run(
+    "). This mRNA-level proxy cannot fully substitute for target-gene-"
+    "based activity inference, but within that limitation, neither "
+    "proposed transcription-factor family shows the pattern this "
+    "hypothesis would predict (Figure S5, Figure S6)."
+)
+
+p = doc.add_paragraph()
+p.add_run(
+    "Finally, whether S100A8hi_macrophage is a transient state that "
+    "matures toward the Kupffer/lipid-associated-macrophage lineage, or a "
+    "stable and distinct state, was tested two ways. GSE156057's diet-"
+    "timepoint design (12/24/36 weeks) allowed a compositional-trend test, "
+    "but with only one sample per timepoint per diet this is severely "
+    "underpowered (n = 3 timepoints/diet); under western diet, the "
+    "S100A8hi_macrophage proportion trended downward (slope = "
+    "-0.0010/week) while the Kupffer proportion trended upward (+0.0003/"
+    "week) — directionally consistent with a maturation model but not "
+    "statistically distinguishable from zero (p = 0.17 and p = 0.60; "
+)
+r = p.add_run("Data S16")
+r.italic = True
+p.add_run(
+    "). A transcriptional-continuity check gave a clearer answer: within "
+    "a PCA space built from only the four refined origin groups, each "
+    "cell's k = 30 nearest neighbors were overwhelmingly (96.2%) also "
+    "S100A8hi_macrophage, with only 1.6% \"leaking\" into Macrophage_MoMF_"
+    "LAM and 2.0% into Kupffer_resident — whereas Kupffer_resident and "
+    "Macrophage_MoMF_LAM leak into each other at 7.3%/2.6%, consistent "
+    "with the established, continuous monocyte-to-Kupffer differentiation "
+    "trajectory"
+)
+add_ref_run(p, 11)
+add_ref_run(p, 12)
+add_ref_run(p, 13)
+p.add_run(
+    " ("
+)
+r = p.add_run("Data S17")
+r.italic = True
+p.add_run(
+    ", Figure S7-S9). S100A8hi_macrophage is therefore transcriptionally "
+    "discrete rather than positioned as an early point along that same "
+    "trajectory, arguing against a simple \"early recruit that matures "
+    "into a Kupffer/LAM-like cell\" model of its fate."
+)
+
+doc.add_page_break()
+
 # ============================================================= DISCUSSION ==
 doc.add_heading("4. Discussion", level=1)
 
@@ -997,14 +1187,34 @@ add_ref_run(p, 10)
 p.add_run(
     " and related work: in the primary reference, S100A8hi_macrophage "
     "showed minimal Trem2 (0.9%) and Gpnmb (2.1%) positivity, while these "
-    "markers were concentrated instead within the broader Macrophage_"
-    "Kupffer compartment (Trem2 42.1%, Gpnmb 23.5%; Section 3.1). Combined "
-    "with its transient, diet-reversible abundance pattern in GSE156057 "
-    "(Section 3.5), this profile is more consistent with an early, acutely "
-    "inflammatory, recently recruited monocyte-derived state responding to "
-    "adipocyte death than with the chronically lipid-laden lipid-"
-    "associated-macrophage phenotype that develops later in disease "
-    "progression."
+    "markers were concentrated instead within a Ccr2-high (76.6%), Trem2/"
+    "Gpnmb-high subset of the broader Macrophage_Kupffer compartment that "
+    "itself carries the canonical monocyte-recruitment signature "
+    "S100A8hi_macrophage lacks (Ccr2 3.0%, Plac8 19.5% vs. 69.5% in that "
+    "same subset; Section 3.1, Data S9). S100A8hi_macrophage is therefore "
+    "transcriptionally distinct not only from mature LAM/Kupffer identity "
+    "but also from the classical Ccr2-dependent monocyte-recruitment "
+    "program — it does not simply occupy an early point on the same "
+    "Ccr2-high recruitment-to-LAM trajectory that this dataset's "
+    "Macrophage_Kupffer compartment does"
+)
+add_ref_run(p, 11)
+add_ref_run(p, 12)
+add_ref_run(p, 13)
+p.add_run(
+    ". Combined with its transient, diet-reversible abundance pattern in "
+    "GSE156057 (Section 3.5), this argues against a straightforward, "
+    "freshly-recruited classical monocyte origin and instead favors one of "
+    "the source paper's own alternative hypotheses"
+)
+add_ref_run(p, 1)
+p.add_run(
+    " — induction of S100A8 directly within a myeloid population already "
+    "present in the liver, or recruitment via a non-Ccr2-dependent route — "
+    "over the simpler recently-recruited-monocyte model; distinguishing "
+    "between these remaining possibilities would require lineage-tracing "
+    "or fate-mapping data beyond what transcriptomic clustering alone can "
+    "resolve."
 )
 
 doc.add_heading("4.1 Limitations", level=2)
@@ -1097,7 +1307,7 @@ p.add_run(
     "Full result tables underlying all figures and in-text statistics are "
     "reported in a separate document, "
 )
-r = p.add_run("Supplemental Data (Data S1-S8)")
+r = p.add_run("Supplemental Data (Data S1-S17, Figure S1-S9)")
 r.italic = True
 p.add_run(
     ", accompanying this manuscript: "
@@ -1122,17 +1332,59 @@ r.italic = True
 p.add_run(" (GSE156057 S100A8-hi cluster proportions by diet/timepoint), ")
 r = p.add_run("Data S7")
 r.italic = True
-p.add_run(" (GSE166504 marker-gene percent-positive by cluster, all 18 clusters), and ")
+p.add_run(" (GSE166504 marker-gene percent-positive by cluster, all 18 clusters), ")
 r = p.add_run("Data S8")
 r.italic = True
+p.add_run(" (GSE166504 cluster-to-author-label cross-tabulation), ")
+r = p.add_run("Data S9")
+r.italic = True
 p.add_run(
-    " (GSE166504 cluster-to-author-label cross-tabulation). Each Data S "
-    "item states its source CSV and generating script for full "
+    " (monocyte-recruitment vs. resident-Kupffer marker panel, per-gene, "
+    "across S100A8hi_macrophage, the two Macrophage_Kupffer subsets "
+    "described in Methods 2.2, and Neutrophil; Section 3.1, Section 4), "
+)
+r = p.add_run("Data S10")
+r.italic = True
+p.add_run(" (origin composite-score statistics, primary reference), ")
+r = p.add_run("Data S11")
+r.italic = True
+p.add_run(" (origin-signature score comparisons, GSE156057), ")
+r = p.add_run("Data S12")
+r.italic = True
+p.add_run(" (origin score vs. S100a8 expression, GSE166504, cluster-level), ")
+r = p.add_run("Data S13")
+r.italic = True
+p.add_run(" (TF mRNA vs. S100a9/S100A8hi score, bulk RNA-seq, all 34 samples), ")
+r = p.add_run("Data S14")
+r.italic = True
+p.add_run(" (C/EBP and AP-1 TF mRNA panel by origin group, primary reference), ")
+r = p.add_run("Data S15")
+r.italic = True
+p.add_run(" (C/EBP-score and AP1-score composite comparisons), ")
+r = p.add_run("Data S16")
+r.italic = True
+p.add_run(" (S100A8hi_macrophage vs. Kupffer proportion trend over time, GSE156057), and ")
+r = p.add_run("Data S17")
+r.italic = True
+p.add_run(
+    " (PCA-space nearest-neighbor composition by origin group; Section "
+    "3.6, Section 4). The same document also contains "
+)
+r = p.add_run("Figure S1-S9")
+r.italic = True
+p.add_run(
+    ", the figures underlying Section 3.6's follow-up analysis (origin "
+    "marker dot plots, composite-score violin plots, cross-dataset "
+    "correlation scatter plots, TF correlation/dot plots, compositional-"
+    "trend and restricted-UMAP plots). Each Data S and Figure S item "
+    "states its source CSV/PNG and generating script for full "
     "reproducibility. The underlying raw CSV files are also available "
     "directly in the code repository (Section 2.8): results/11_axis1_"
     "stats_full.csv, results/11_MKO_stats_full.csv, results/11_lipid_"
     "correlation_BH.csv, results/11_marker_panel_QC.csv (Table S1 source "
-    "data, below), and external_validation/results/*.csv."
+    "data, below), results/13_origin_marker_panel_percluster.csv, "
+    "results/14_tf_*.csv, results/15_fate_*.csv, and "
+    "external_validation/results/*.csv."
 )
 
 s1_headers = ["Cell type", "Marker genes used", "% variance explained by PC1"]
@@ -1215,6 +1467,22 @@ references = [
     "Osteopontin Expression Identifies a Subset of Recruited Macrophages "
     "Distinct from Kupffer Cells in the Fatty Liver. Immunity. "
     "2020;53(3):641-657.e14. doi:10.1016/j.immuni.2020.08.004",
+
+    "Guilliams M, Bonnardel J, Haest B, Vanderborght B, Wagner C, Remmerie "
+    "A, et al. Spatial proteogenomics reveals distinct and evolutionarily "
+    "conserved hepatic macrophage niches. Cell. 2022;185(2):379-396.e38. "
+    "doi:10.1016/j.cell.2021.12.018",
+
+    "Scott CL, Zheng F, De Baetselier P, Martens L, Saeys Y, De Prijck S, "
+    "et al. Bone marrow-derived monocytes give rise to self-renewing and "
+    "fully differentiated Kupffer cells. Nat Commun. 2016;7:10321. "
+    "doi:10.1038/ncomms10321",
+
+    "Bonnardel J, T'Jonck W, Gaublomme D, Browaeys R, Scott CL, Martens L, "
+    "et al. Stellate Cells, Hepatocytes, and Endothelial Cells Imprint the "
+    "Kupffer Cell Identity on Monocytes Colonizing the Liver Macrophage "
+    "Niche. Immunity. 2019;51(4):638-654.e9. "
+    "doi:10.1016/j.immuni.2019.08.017",
 ]
 
 for i, ref in enumerate(references, start=1):

@@ -1,0 +1,3 @@
+"score","n_clusters","spearman_rho","p_value"
+"MonocyteScore",18,0.205366357069143,0.412031436481371
+"ResidentScore",18,-0.471620227038184,0.0499703595118137
