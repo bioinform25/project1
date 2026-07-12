@@ -391,7 +391,23 @@ p.add_run(
     "28 clusters) and visualized with UMAP"
 )
 add_ref_run(p, 8)
-p.add_run(".")
+p.add_run(
+    " (per-sample QC metrics before/after filtering: "
+)
+r = p.add_run("Figure S10")
+r.italic = True
+p.add_run(", ")
+r = p.add_run("Data S18")
+r.italic = True
+p.add_run(
+    "; full 28-cluster UMAP, by cluster and by genotype: "
+)
+r = p.add_run("Figure S11")
+r.italic = True
+p.add_run(", ")
+r = p.add_run("Figure S12")
+r.italic = True
+p.add_run(").")
 
 p = doc.add_paragraph()
 p.add_run(
@@ -401,8 +417,26 @@ p.add_run(
     "stellate/fibroblast; Cd3e/Cd3d, T cell; Cd79a/Ms4a1, B cell; Ncr1, NK "
     "cell; Krt19/Epcam, cholangiocyte) together with FindAllMarkers "
     "(Wilcoxon rank-sum test, only.pos = TRUE, min.pct = 0.25, "
-    "logFC threshold = 0.5). Twenty-eight clusters were collapsed into 12 "
-    "cell types. Two low-confidence clusters (973/19,140 cells, 5.1%) were "
+    "logFC threshold = 0.5; full marker-gene panel and per-cluster sizes: "
+)
+r = p.add_run("Figure S13")
+r.italic = True
+p.add_run(", ")
+r = p.add_run("Data S19")
+r.italic = True
+p.add_run(
+    "). Twenty-eight clusters were collapsed into 12 "
+    "cell types (counts by genotype: "
+)
+r = p.add_run("Data S20")
+r.italic = True
+p.add_run(
+    "; final annotated UMAP: "
+)
+r = p.add_run("Figure S14")
+r.italic = True
+p.add_run(
+    "). Two low-confidence clusters (973/19,140 cells, 5.1%) were "
     "excluded before downstream analysis: one dominated by ambient-RNA/"
     "mitochondrial genes and one defined only by cell-cycle genes with no "
     "clear lineage identity. Critically, S100a8/S100a9-positive myeloid "
@@ -411,7 +445,12 @@ p.add_run(
     "negative, partially Csf1r/Cd68/Adgre1-positive — monocyte/macrophage "
     "lineage) and a \"Neutrophil\" population (S100a8/S100a9-positive "
     "together with Ly6g, Camp, Ltf, Ngp and Mpo — mature granulocyte "
-    "lineage; Figure 1B). These were kept as separate cell types throughout, "
+    "lineage; Figure 1B, "
+)
+r = p.add_run("Figure S15")
+r.italic = True
+p.add_run(
+    "). These were kept as separate cell types throughout, "
     "since collapsing them would confound the population of biological "
     "interest with an unrelated granulocyte lineage that also expresses "
     "S100a8/S100a9."
@@ -469,7 +508,12 @@ p.add_run(
     "Per-sample raw counts were extracted from both GSE285614 supplementary "
     "tables, duplicate gene symbols were collapsed by summation, and the two "
     "gene sets were intersected (12,505 shared genes) before merging into a "
-    "single 34-sample raw count matrix. The two genotype axes were kept "
+    "single 34-sample raw count matrix (full sample-level metadata: "
+)
+r = p.add_run("Data S22")
+r.italic = True
+p.add_run(
+    "). The two genotype axes were kept "
     "labeled separately throughout all downstream analyses — although both "
     "contain a group labeled \"WT\", they were sequenced as independent "
     "DESeq2 runs/batches and were never pooled or treated as the same "
@@ -506,7 +550,17 @@ r = p.add_run("same")
 r.italic = True
 p.add_run(
     " cell type across samples or groups, not for comparing magnitude "
-    "between different cell types."
+    "between different cell types (full per-sample, per-cell-type scores, "
+    "all 34 bulk samples: "
+)
+r = p.add_run("Data S23")
+r.italic = True
+p.add_run(
+    "; summary overview figure: "
+)
+r = p.add_run("Figure S22")
+r.italic = True
+p.add_run(")."
 )
 
 p = doc.add_paragraph()
@@ -543,7 +597,16 @@ p.add_run(
     "We initially validated the axis-1 (WT vs Bcl2TG, HFD) deconvolution "
     "against cell-type proportions counted directly from the single WT/TG "
     "scRNA-seq sample pair. This showed the S100A8hi_macrophage proportion "
-    "as higher in TG than WT (3.55% vs 2.43%, a 1.46-fold difference), "
+    "as higher in TG than WT (3.55% vs 2.43%, a 1.46-fold difference; all "
+    "12 cell types: "
+)
+r = p.add_run("Figure S16")
+r.italic = True
+p.add_run(", ")
+r = p.add_run("Data S21")
+r.italic = True
+p.add_run(
+    "), "
     "whereas the deconvolution estimated the opposite direction (WT > TG). "
     "Because a single biological replicate per group cannot establish a "
     "population-level direction, we treated this apparent discrepancy as "
@@ -564,7 +627,21 @@ p.add_run(
     " fold-change = -0.74, p = 0.004, BH-adjusted p = 0.050) and other "
     "macrophage markers (Adgre1, Csf1r, Clec4f, Ptprc) were all higher in WT "
     "than TG, matching the deconvolution direction rather than the "
-    "single-pair scRNA-seq comparison (Figure 2C). This is also the direction "
+    "single-pair scRNA-seq comparison (Figure 2C; full marker-direction "
+    "cross-check and per-cell-type validation statistics: "
+)
+r = p.add_run("Data S24")
+r.italic = True
+p.add_run(
+    "; all 12 cell types, exploratory versions of Figure 2A-B: "
+)
+r = p.add_run("Figure S17")
+r.italic = True
+p.add_run(", ")
+r = p.add_run("Figure S18")
+r.italic = True
+p.add_run(
+    "). This is also the direction "
     "predicted mechanistically: Bcl2 overexpression blocks adipocyte "
     "apoptosis and is therefore protective, so Bcl2TG mice are expected to "
     "show "
@@ -638,7 +715,18 @@ p.add_run(
     "within-condition biological replicates), reclustered de novo (77,655 "
     "cells, resolution = 0.8, 40 clusters). For each dataset we determined "
     "whether any cluster matched the marker criteria and, where present, "
-    "computed its proportion of CD45+/myeloid cells across conditions."
+    "computed its proportion of CD45+/myeloid cells across conditions "
+    "(full reclustering UMAPs, by cluster/sample/animal, and full marker-"
+    "panel dot plots for both datasets: "
+)
+r = p.add_run("Figure S23-S30")
+r.italic = True
+p.add_run(
+    "; GSE166504 average-expression companion table: "
+)
+r = p.add_run("Data S26")
+r.italic = True
+p.add_run(")."
 )
 
 doc.add_heading("2.8 Data and code availability", level=2)
@@ -772,13 +860,26 @@ p.add_run(
 )
 p.add_run("≳").font.name = "Cambria Math"
 p.add_run(
-    " 2.0-2.4 — larger than the effect sizes observed for either macrophage "
+    " 2.0-2.4 (full power/MDE table: "
+)
+r = p.add_run("Data S25")
+r.italic = True
+p.add_run(
+    ") — larger than the effect sizes observed for either macrophage "
     "population, meaning the null result reflects limited power for "
     "moderate effects rather than a confirmed absence of any composition "
     "change. Two cell types showed nominal, BH-uncorrected effects at "
     "exactly the magnitude this design can detect: Neutrophil was lower in "
     "MKO (d = -2.42, p = 0.037) and Mast_cell was higher in MKO (d = 2.36, "
-    "p = 0.037) under HFD (Figure 3E-F); neither survived correction across "
+    "p = 0.037) under HFD (Figure 3E-F; exploratory versions of all panels: "
+)
+r = p.add_run("Figure S19")
+r.italic = True
+p.add_run(", ")
+r = p.add_run("Figure S20")
+r.italic = True
+p.add_run(
+    "); neither survived correction across "
     "the 12-cell-type family (q = 0.22) and both require confirmation in an "
     "adequately powered cohort before mechanistic interpretation. Full "
     "results for all 12 cell types in both diets, underlying Figure 3, are "
@@ -816,7 +917,12 @@ p.add_run(
 )
 p.add_run("≥").font.name = "Cambria Math"
 p.add_run(
-    " 0.42; Cd36: r = 0.11, q = 0.76; Figure 4B-C) — a consistent, "
+    " 0.42; Cd36: r = 0.11, q = 0.76; Figure 4B-C, exploratory version: "
+)
+r = p.add_run("Figure S21")
+r.italic = True
+p.add_run(
+    ") — a consistent, "
     "reproducible null across the full cohort, within axis 1 alone, and "
     "within axis 2 alone. Full correlation results for all 30 tests "
     "(5 genes x 2 cell types x 3 sample subsets) are in "
@@ -928,7 +1034,9 @@ add_figure(
     "expressing S100a8 plotted against percent expressing Csf1r for all 18 "
     "myeloid clusters, colored by the authors' dominant cell-type label; "
     "S100a8 positivity forms a gradient rather than isolating a discrete "
-    "cluster among monocyte/macrophage-lineage populations."
+    "cluster among monocyte/macrophage-lineage populations. Generated as "
+    "external_validation/figures/Figure5_external_validation.png by "
+    "external_validation/scripts/05_summary_figure.R."
 )
 
 doc.add_page_break()
@@ -1307,7 +1415,7 @@ p.add_run(
     "Full result tables underlying all figures and in-text statistics are "
     "reported in a separate document, "
 )
-r = p.add_run("Supplemental Data (Data S1-S17, Figure S1-S9)")
+r = p.add_run("Supplemental Data (Data S1-S26, Figure S1-S30)")
 r.italic = True
 p.add_run(
     ", accompanying this manuscript: "
@@ -1368,23 +1476,40 @@ r = p.add_run("Data S17")
 r.italic = True
 p.add_run(
     " (PCA-space nearest-neighbor composition by origin group; Section "
-    "3.6, Section 4). The same document also contains "
+    "3.6, Section 4); and, completing the source-data record for every "
+    "step of the primary pipeline (Methods 2.2-2.5, 2.7) not already "
+    "covered above, "
+)
+r = p.add_run("Data S18-S26")
+r.italic = True
+p.add_run(
+    " (scRNA QC summary; full 28-cluster marker genes and sizes; 12-type "
+    "cell counts by genotype; scRNA ground-truth proportions; bulk sample "
+    "metadata, all 34 samples; full deconvolution scores, all 34 samples x "
+    "12 cell types; axis-1 marker-direction cross-check; post hoc power/"
+    "MDE; and the GSE166504 average-expression companion table). The same "
+    "document also contains "
 )
 r = p.add_run("Figure S1-S9")
 r.italic = True
 p.add_run(
-    ", the figures underlying Section 3.6's follow-up analysis (origin "
+    " (the figures underlying Section 3.6's follow-up analysis: origin "
     "marker dot plots, composite-score violin plots, cross-dataset "
     "correlation scatter plots, TF correlation/dot plots, compositional-"
-    "trend and restricted-UMAP plots). Each Data S and Figure S item "
-    "states its source CSV/PNG and generating script for full "
-    "reproducibility. The underlying raw CSV files are also available "
-    "directly in the code repository (Section 2.8): results/11_axis1_"
-    "stats_full.csv, results/11_MKO_stats_full.csv, results/11_lipid_"
-    "correlation_BH.csv, results/11_marker_panel_QC.csv (Table S1 source "
-    "data, below), results/13_origin_marker_panel_percluster.csv, "
-    "results/14_tf_*.csv, results/15_fate_*.csv, and "
-    "external_validation/results/*.csv."
+    "trend and restricted-UMAP plots) and "
+)
+r = p.add_run("Figure S10-S30")
+r.italic = True
+p.add_run(
+    " (every remaining QC, clustering, and exploratory figure generated "
+    "during the primary and external-validation analyses — including "
+    "earlier-stage versions of panels later re-formatted for Figures 1-5 "
+    "— so that no figure produced during this study is left undocumented). "
+    "Each Data S and Figure S item states its source CSV/PNG and "
+    "generating script for full reproducibility. The underlying raw CSV "
+    "files, and the intermediate .rds objects from which they were "
+    "computed, are also available directly in the code repository "
+    "(Section 2.8)."
 )
 
 s1_headers = ["Cell type", "Marker genes used", "% variance explained by PC1"]
@@ -1409,7 +1534,7 @@ add_caption(
     "coherently the marker panel behaves as a single factor; values below "
     "~50% (Cholangiocyte, Mast_cell, Neutrophil, T_cell) indicate a noisier, "
     "less unidimensional signal and should be interpreted with additional "
-    "caution.",
+    "caution. Source data: results/11_marker_panel_QC.csv.",
     bold_prefix="Table S1. "
 )
 make_table(s1_headers, s1_rows, col_widths_in=[2.2, 1.6, 2.2])
